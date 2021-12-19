@@ -81,12 +81,15 @@ app.post("/api/users/:id/exercises", (req, res) => {
       duration: parseInt(req.body.duration),
       date: req.body.date ? new Date(req.body.date) : Date.now()
     }, (err, createdUser) => {
+      if (err) {
+        console.log(err);
+      }
       res.json({
-        _id: req.body._id,
+        _id: createdUser.userId,
         username: data.username,
         date: createdUser.date.toDateString(),
         duration: parseInt(req.body.duration),
-        description: req.body.description
+        description: createdUser.description
       });
     });
   });
